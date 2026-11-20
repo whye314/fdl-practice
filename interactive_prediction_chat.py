@@ -80,7 +80,7 @@ def main():
             break
         if not prompt.strip():
             continue
-
+        print("prompt:", prompt)
         generated = generate_chat(
             model, config, tokenizer, prompt,
             num_tokens=args.num_tokens,
