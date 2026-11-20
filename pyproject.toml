@@ -1,0 +1,33 @@
+[project]
+name = "gpt"
+version = "0.1.0"
+description = "Autonomous pretraining research swarm"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "datasets>=4.0.0",
+    "huggingface-hub>=0.34.0",
+    "kernels>=0.11.7",
+    "matplotlib>=3.10.8",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "pyarrow>=21.0.0",
+    "requests>=2.32.0",
+    "rustbpe>=0.1.0",
+    "tiktoken>=0.11.0",
+    "torch==2.6.0",
+    "wandb>=0.15.0",
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu118" },
+]
+
+# CUDA 11.8 wheels are the last PyTorch builds that ship Pascal (sm_61) kernels,
+# needed for the TITAN X (Pascal) nodes on the `titan` partition. Newer cu12x
+# wheels only cover sm_70+. A cu118 build still runs fine against a newer driver.
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true

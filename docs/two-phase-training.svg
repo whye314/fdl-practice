@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="780" viewBox="0 0 1600 780" font-family="'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="780" fill="#f8fafc"/>
+
+  <text x="800" y="58" text-anchor="middle" font-size="40" font-weight="700" fill="#0f172a">Two-phase GPT training</text>
+  <text x="800" y="94" text-anchor="middle" font-size="21" fill="#64748b">Pretrain on web-scale text, then instruction-tune on conversations</text>
+
+  <!-- ================= PHASE 1 ================= -->
+  <rect x="60" y="140" width="700" height="470" rx="20" fill="#eef2ff" stroke="#c7d2fe" stroke-width="2"/>
+  <text x="410" y="182" text-anchor="middle" font-size="27" font-weight="700" fill="#3730a3">Phase 1 — Pretraining</text>
+  <text x="410" y="212" text-anchor="middle" font-size="18" fill="#4f46e5">train.py &#183; 2 epochs</text>
+
+  <!-- data card -->
+  <rect x="100" y="240" width="620" height="150" rx="14" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" filter="url(#shadow)"/>
+  <text x="410" y="272" text-anchor="middle" font-size="20" font-weight="700" fill="#1e293b">Nemotron-CC corpus &#8212; ~5B tokens</text>
+  <text x="410" y="300" text-anchor="middle" font-size="16" fill="#475569">6 quality / topic strata:</text>
+  <text x="410" y="326" text-anchor="middle" font-size="15" fill="#475569">Diverse-QA &#183; High-Quality &#183; High-Quality-Synthetic</text>
+  <text x="410" y="348" text-anchor="middle" font-size="15" fill="#475569">Medium-High-Quality &#183; Medium-Quality &#183; Translated-Diverse-QA</text>
+  <text x="410" y="374" text-anchor="middle" font-size="14" fill="#94a3b8">general web / document &amp; QA-style text &#183; loss on all tokens</text>
+
+  <!-- arrow down -->
+  <line x1="410" y1="392" x2="410" y2="452" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- model card -->
+  <rect x="210" y="458" width="400" height="118" rx="14" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" filter="url(#shadow)"/>
+  <text x="410" y="492" text-anchor="middle" font-size="20" font-weight="700" fill="#1e293b">GPT from scratch</text>
+  <text x="410" y="520" text-anchor="middle" font-size="15" fill="#475569">next-token prediction over the full sequence</text>
+  <text x="410" y="548" text-anchor="middle" font-size="15" fill="#475569">output: <tspan font-family="monospace" fill="#3730a3">model_weights-*.pt</tspan></text>
+
+  <!-- ================= HAND-OFF ARROW ================= -->
+  <line x1="770" y1="375" x2="838" y2="375" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="805" y="356" text-anchor="middle" font-size="14" fill="#334155">phase-1</text>
+  <text x="805" y="400" text-anchor="middle" font-size="14" fill="#334155">checkpoint</text>
+
+  <!-- ================= PHASE 2 ================= -->
+  <rect x="850" y="140" width="700" height="470" rx="20" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"/>
+  <text x="1200" y="182" text-anchor="middle" font-size="27" font-weight="700" fill="#065f46">Phase 2 — Posttraining</text>
+  <text x="1200" y="212" text-anchor="middle" font-size="18" fill="#059669">train_phase2.py &#183; instruction tuning</text>
+
+  <!-- data card -->
+  <rect x="890" y="240" width="620" height="150" rx="14" fill="#ffffff" stroke="#a7f3d0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1200" y="272" text-anchor="middle" font-size="20" font-weight="700" fill="#1e293b">HuggingFaceTB/smol-smoltalk</text>
+  <text x="1200" y="300" text-anchor="middle" font-size="16" fill="#475569">conversations with system / user / assistant messages</text>
+  <text x="1200" y="326" text-anchor="middle" font-size="15" font-family="monospace" fill="#065f46">&lt;BOS&gt;&lt;USER&gt;&#8230;&lt;EOM&gt;&lt;ASSISTANT&gt;&#8230;&lt;EOM&gt;</text>
+  <text x="1200" y="352" text-anchor="middle" font-size="15" fill="#475569">deterministic seed-108 split:</text>
+  <text x="1200" y="374" text-anchor="middle" font-size="14" fill="#94a3b8">456,245 train &#183; 4,096 validation conversations</text>
+
+  <!-- arrow down -->
+  <line x1="1200" y1="392" x2="1200" y2="452" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- model card -->
+  <rect x="1000" y="458" width="400" height="118" rx="14" fill="#ffffff" stroke="#a7f3d0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1200" y="492" text-anchor="middle" font-size="20" font-weight="700" fill="#1e293b">continue training the checkpoint</text>
+  <text x="1200" y="520" text-anchor="middle" font-size="15" fill="#475569">loss on assistant tokens only</text>
+  <text x="1200" y="548" text-anchor="middle" font-size="15" fill="#475569">output: <tspan font-family="monospace" fill="#065f46">model_weights-phase2-*.pt</tspan></text>
+
+  <!-- ================= RESULT ================= -->
+  <line x1="800" y1="626" x2="800" y2="668" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="452" y="686" width="696" height="52" rx="26" fill="#0f172a"/>
+  <text x="800" y="719" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">Chat-capable model &#183; <tspan font-family="monospace">interactive_prediction_chat.py</tspan></text>
+</svg>
